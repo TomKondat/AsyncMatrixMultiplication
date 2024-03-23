@@ -48,10 +48,10 @@ namespace Homework
                     await CalculateRow(MatrixC, rowQueue);
                 }));
             }
-
             await Task.WhenAll(tasks);
 
             Console.WriteLine("Finished Working");
+
             return MatrixC;
         }
         private async Task CalculateRow(Matrix MatrixC, ConcurrentQueue<int> rowQueue)
