@@ -1,4 +1,6 @@
 ﻿
+using Homework.Models;
+
 namespace Homework
 {
     internal class Program
@@ -21,11 +23,9 @@ namespace Homework
             matrixB.FillMatrix();
             //matrixB.PrintMatrix();
 
-            var matrixC = new Matrix(matrixA.Row, matrixB.Col);
-            var matrixD = new Matrix(matrixA.Row, matrixB.Col);
-
+            var matrixMultiplication = new MatrixMultiplication(matrixA, matrixB);
             var stopwatch1 = System.Diagnostics.Stopwatch.StartNew();
-            matrixC.MulMatrixSync(matrixA, matrixB);
+            var matrixC = matrixMultiplication.MulMatrixSync();
             stopwatch1.Stop();
             Console.WriteLine($"Time took for sync funtion is : {stopwatch1}");
             //matrixC.PrintMatrix();
@@ -33,10 +33,11 @@ namespace Homework
             Console.WriteLine("How many Tasks you want for async function?");
             var maxTasks = Validator.ValidateInput.ValidateTask();
             var stopwatch2 = System.Diagnostics.Stopwatch.StartNew();
-            await matrixD.MulMatrixAsync(matrixA, matrixB, maxTasks);
+            var matrixCAsync = await matrixMultiplication.MulMatrixAsync(maxTasks);
             stopwatch2.Stop();
             Console.WriteLine($"Time took for async funtion is : {stopwatch2}");
-            //matrixD.PrintMatrix();
+            //matrixCAsync.PrintMatrix();
+
         }
     }
 }
